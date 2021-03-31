@@ -1,22 +1,9 @@
-深色模式 demo，方案一：
-切换不同的模式，加载不同的 className
-关键代码：
+深色模式 demo，方案二：
+[prefers-color-scheme](https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media/prefers-color-scheme)检测系统主题色，根据 css 媒体查询匹配不同的色值
 
-```javascript
-function App() {
-    const [mode, setMode] = useState("light");
-    return (
-        <div className={`App ${mode}`}>
-            <div style={{ paddingTop: "50px" }}>
-                切换主题模式：
-                <Switch
-                    onClick={() => setMode(mode === "light" ? "dark" : "light")}
-                ></Switch>
-            </div>
-        </div>
-    );
-}
-```
+在 chrome://flags/#enable-force-dark 页面修改 chrome 主题色，reload 后，查看本页面的样式，会自动变换主题色
+
+关键代码：
 
 css
 
@@ -34,14 +21,21 @@ css
 .App {
     min-height: 100vh;
     text-align: center;
+    color: var(--current-primary-color);
+    background-color: var(--current-background-color);
 }
 
-.light {
-    color: var(--light-primary-color);
-    background-color: var(--light-background-color);
+@media (prefers-color-scheme: dark) {
+    :root {
+        --current-background-color: var(--dark-background-color);
+        --current-primary-color: var(--dark-primary-color);
+    }
 }
-.dark {
-    color: var(--dark-primary-color);
-    background-color: var(--dark-background-color);
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --current-background-color: var(--light-background-color);
+        --current-primary-color: var(--light-primary-color);
+    }
 }
 ```
