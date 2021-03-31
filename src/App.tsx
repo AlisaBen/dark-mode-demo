@@ -13,6 +13,7 @@ function App() {
                 <Switch
                     onClick={() => setMode(mode === "light" ? "dark" : "light")}
                 ></Switch>
+                {"当前模式为：" + (mode === "light" ? "浅色模式" : "深色模式")}
             </div>
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />

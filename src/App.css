@@ -1,11 +1,11 @@
 :root {
     /* 浅色主题 */
     --light-primary-color: #666;
-    --light-background-color: #fff;
+    --light-background-color: #ffff83;
 
     /* 深色主题 */
-    --dark-primary-color: #fff;
-    --dark-background-color: #282c34;
+    --dark-primary-color: #fffff5;
+    --dark-background-color: #3d74f2;
 }
 
 .App {
