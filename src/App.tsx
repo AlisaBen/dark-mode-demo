@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { Switch } from "antd";
 import "antd/dist/antd.css";
+import setTheme from "./util";
 
 function App() {
     const [mode, setMode] = useState("light");
+    useEffect(() => {
+        setTheme(mode);
+    }, [mode]);
     return (
-        <div className={`App ${mode}`}>
+        <div className={`App`}>
             <div style={{ paddingTop: "50px" }}>
                 切换主题模式：
                 <Switch

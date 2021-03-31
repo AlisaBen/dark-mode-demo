@@ -1,4 +1,6 @@
 :root {
+    --current-background-color: var(--light-background-color);
+    --current-primary-color: var(--light-primary-color);
     /* 浅色主题 */
     --light-primary-color: #666;
     --light-background-color: #ffff83;
@@ -11,15 +13,8 @@
 .App {
     min-height: 100vh;
     text-align: center;
-}
-
-.light {
-    color: var(--light-primary-color);
-    background-color: var(--light-background-color);
-}
-.dark {
-    color: var(--dark-primary-color);
-    background-color: var(--dark-background-color);
+    color: var(--current-primary-color);
+    background-color: var(--current-background-color);
 }
 
 .App-logo {
