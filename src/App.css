@@ -11,22 +11,15 @@
 .App {
     min-height: 100vh;
     text-align: center;
-    color: var(--current-primary-color);
-    background-color: var(--current-background-color);
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --current-background-color: var(--dark-background-color);
-        --current-primary-color: var(--dark-primary-color);
-    }
+.light {
+    color: var(--light-primary-color);
+    background-color: var(--light-background-color);
 }
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --current-background-color: var(--light-background-color);
-        --current-primary-color: var(--light-primary-color);
-    }
+.dark {
+    color: var(--dark-primary-color);
+    background-color: var(--dark-background-color);
 }
 
 .App-logo {

@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+    const [mode, setMode] = useState("light");
+    useEffect(() => {
+        if (window && window.matchMedia) {
+            const mediaQuery = window.matchMedia(
+                "(prefers-color-scheme: light)"
+            );
+            if (mediaQuery && mediaQuery.matches) {
+                const listener = () => {
+                    setMode(mediaQuery.matches ? "light" : "dark");
+                };
+                mediaQuery.addEventListener("change", listener);
+                return () => {
+                    mediaQuery.removeEventListener("change", listener);
+                };
+            }
+        }
+    }, []);
+
     return (
-        <div className={`App`}>
+        <div className={`App ${mode}`}>
             <div style={{ paddingTop: "50px" }}>
                 通过css媒体查询动态改变网页主题模式，通过
                 <span className="App-link">
