@@ -1,47 +1,17 @@
-深色模式 demo，方案一：
-切换不同的模式，加载不同的 className
-关键代码：
+# Dynamic Theme
 
-```javascript
-function App() {
-    const [mode, setMode] = useState("light");
-    return (
-        <div className={`App ${mode}`}>
-            <div style={{ paddingTop: "50px" }}>
-                切换主题模式：
-                <Switch
-                    onClick={() => setMode(mode === "light" ? "dark" : "light")}
-                ></Switch>
-            </div>
-        </div>
-    );
-}
-```
+In this project, we are using two theme provided by Ant Design i.e. Dark theme and Compact (light) theme.
 
-css
+## config-overrides.js
 
-```css
-:root {
-    /* 浅色主题 */
-    --light-primary-color: #666;
-    --light-background-color: #fff;
+`config-overrides.js` file contains plugin configurations and you can get the idea, how you can create your own theme file and then you can apply
+this on demand.
 
-    /* 深色主题 */
-    --dark-primary-color: #fff;
-    --dark-background-color: #282c34;
-}
 
-.App {
-    min-height: 100vh;
-    text-align: center;
-}
+## src/dark.json, src/light.json
 
-.light {
-    color: var(--light-primary-color);
-    background-color: var(--light-background-color);
-}
-.dark {
-    color: var(--dark-primary-color);
-    background-color: var(--dark-background-color);
-}
-```
+These json files will be created when you will run your project and dark.json will contain dark theme variables and light.json will contain 
+compact theme variables provides by Ant Design. You can create your own theme or you can install and use any other theme for ant design.
+These json files will be used in component to update your theme using `less.modifyVars(yourVars)`. See App.js code
+
+
