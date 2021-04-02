@@ -12,7 +12,7 @@ interface Theme {
   variables: Record<string, string | RuntimeValue>;
 }
 
-interface ThemeOptions {
+export interface ThemeOptions {
   name?: string;
   variables?: ThemeVariables;
 }
@@ -80,7 +80,8 @@ interface RuntimeValue {
 }
 
 const lookup = new Map<string, Theme>();
-
+console.log("serializedVariableGroups");
+console.log(serializedVariableGroups);
 const themes: Theme[] = Object.keys(serializedVariableGroups).map((name) => {
   const serializedVariables = serializedVariableGroups[name];
   const variables: Record<string, string | RuntimeValue> = {};
@@ -95,6 +96,7 @@ const themes: Theme[] = Object.keys(serializedVariableGroups).map((name) => {
       variables[name] = value;
     }
   });
+
   const theme = { name, variables };
   lookup.set(theme.name, theme);
   return theme;
@@ -156,7 +158,7 @@ function compute(options: ThemeOptions): ComputedTheme {
 }
 
 export function setTheme(theme: ThemeOptions) {
-  console.log("setTheme");
+  console.log("setTheme---------------------");
   console.log(theme);
   const variables = compute(theme);
   loadTheme(variables);
@@ -178,7 +180,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   React.useEffect(() => {
     pending.current = () => {
       setTimeout(() => {
+        console.log(`theme:${theme}`);
         const variables = compute(theme);
+        console.log("pending load variables");
+        console.log(variables);
         loadTheme(variables);
         pending.current = undefined;
       }, 0);

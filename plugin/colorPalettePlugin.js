@@ -16,8 +16,12 @@ class ColorPalettePlugin {
     functions.add(
       'colorPalette', (color, index) => new less.tree.Color(colorPalette(color, index))
     );
+    // console.log(`-------colorPalette variable:${variable}, index:${index}`)
 
-    const replacement = (_, variable, index) => `colorPalette(@${variable}, ${index})`;
+    const replacement = (_, variable, index) => {
+      console.log(`-------colorPalette variable:${variable}, index:${index}`)
+      return `colorPalette(@${variable}, ${index})`
+    };
 
     pluginManager.addPreProcessor(
       {

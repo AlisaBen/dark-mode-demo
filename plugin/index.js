@@ -178,6 +178,9 @@ class AntdThemePlugin {
           Object.keys(themeVariables).forEach(
             (name) => {
               const themeVariable = themeVariables[name];
+              if (isRuntimeVariable(themeIndex, themeVariable.expr, themeVariable.name)) {
+                console.log(`isRuntimeVariable:${themeIndex}, ${themeVariable.expr}, ${themeVariable.name}`)
+              }
               themeVariables[name] = {
                 ...themeVariable,
                 runtime: isRuntimeVariable(themeIndex, themeVariable.expr, themeVariable.name),
@@ -252,6 +255,7 @@ class AntdThemePlugin {
                 const value = JSON.stringify(resolvedExprs[name].value);
                 const resolvedExpr = resolvedExprs[name];
                 if (resolvedExpr.runtime) {
+                  console.log(`resolvedExpr.runtime, ${name}, ${resolvedExpr.hash}, ${value}`)
                   return (`${JSON.stringify(name)}: { expr: _${resolvedExpr.hash}, default: ${value} }`);
                 }
                 return (`${JSON.stringify(name)}: ${value}`);

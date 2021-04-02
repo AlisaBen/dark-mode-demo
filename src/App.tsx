@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "./logo.svg";
-import "./App.css";
+import "./App.less";
 import { Select, Card, Affix, Anchor, Row, Col, Layout, Button } from "antd";
 import { useLocalStorage } from "react-use";
 import "antd/dist/antd.css";
@@ -29,16 +29,18 @@ const initialTheme = {
 };
 const storageKey = "ant-design-theme";
 const initializeTheme = () => {
+  console.log("initializeTheme");
   const item = localStorage.getItem(storageKey);
+  console.log(item);
   setTheme(item ? JSON.parse(item) : initialTheme);
 };
 
 initializeTheme();
 const ThemeSelect = () => {
-  const [{ name, variables = {}, themes }, setTheme] = useTheme();
-  console.log(themes);
-  console.log(variables);
-  console.log(setTheme);
+  const [{ name, variables = {}, themes }] = useTheme();
+  // console.log(themes);
+  // console.log(variables);
+  // console.log(setTheme);
 
   const sketchPicker = React.useMemo(
     () => (
@@ -48,6 +50,7 @@ const ThemeSelect = () => {
         // }}
         color={variables["primary-color"]}
         onChange={(value) => {
+          console.log(value.hex);
           setTheme({
             name,
             variables: {
@@ -131,14 +134,7 @@ interface RuntimeValue {
   default: string;
   node: any;
 }
-interface Theme {
-  name: string;
-  variables: Record<string, string | RuntimeValue>;
-}
-interface AppState {
-  mode: string;
-  theme: Theme;
-}
+
 const App = () => {
   const [theme, setTheme] = useLocalStorage<ThemeOptions>(
     "ant-design-theme",
@@ -148,7 +144,7 @@ const App = () => {
     <ThemeProvider
       theme={theme}
       onChange={(value) => {
-        console.log("themeprovider");
+        console.log("themeprovider-------onchange");
         setTheme(value);
       }}
     >

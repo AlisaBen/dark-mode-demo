@@ -12,23 +12,29 @@ function loader(content) {
   if (namedExport) {
     exportName += `.${namedExport}`;
   }
+  let contentList = content.split('\n');
+  const headImport = contentList.filter(item => item.includes("import")).join("\n");
+  const tailExport = contentList.filter(item => item.includes("export default"))[0].split("export default ")[1]
+  const middleContent = contentList.filter(item => !item.includes("import") && !item.includes("export default")).join('\n');
 
   const code = [
-    'var content = (function (module) {',
+    headImport,
+    'var data = (function (module) {',
     'var css = { id: module.id, exports: {} };',
     '(function (module) {',
-    content,
+    middleContent,
+    `return ${tailExport}`,
     '})(css);',
     'return css.exports;',
     '}) (module);',
     `var loader = require(${JSON.stringify(loadedThemedStylesPath)});`,
     '',
-    'if(typeof content === "string") content = [[module.id, content]];',
+    'if(typeof data === "string") data = [[module.id, data]];',
     '',
     '// add the styles to the DOM',
-    `for (var i = 0; i < content.length; i++) loader.loadStyles(content[i][1], ${async === true});`,
+    `for (var i = 0; i < data.length; i++) loader.loadStyles(data[i][1], ${async === true});`,
     '',
-    `if(content.locals) ${exportName} = content.locals;`,
+    `if(data.locals) ${exportName} = data.locals;`,
   ].join('\n');
   console.log(code)
   return code

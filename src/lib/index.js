@@ -11,12 +11,16 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
+    console.log("----mod")
+    console.log(mod)
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.useTheme = exports.ThemeProvider = exports.setTheme = void 0;
 var react_1 = __importDefault(require("react"));
 var loadThemedStyles_js_1 = require("./loadThemedStyles.js");
 var themes_1 = __importDefault(require("./themes"));
+
 var parser_1 = __importDefault(require("./parser"));
 var runtime_1 = require("./runtime");
 var ThemeContext = react_1.default.createContext(undefined);
@@ -59,6 +63,10 @@ var deserialize = function (node) {
 };
 var lookup = new Map();
 var themes = Object.keys(themes_1.default).map(function (name) {
+    console.log(themes_1.default)
+    console.log(`name: ${name}`)
+    console.log("themes_1.default")
+    console.log(themes_1.default[name])
     var serializedVariables = themes_1.default[name];
     var variables = {};
     Object.keys(serializedVariables).forEach(function (name) {
@@ -71,6 +79,8 @@ var themes = Object.keys(themes_1.default).map(function (name) {
         }
     });
     var theme = { name: name, variables: variables };
+    console.log("themes: ")
+    console.log(theme)
     lookup.set(theme.name, theme);
     return theme;
 });
@@ -94,6 +104,8 @@ function compute(options) {
     if (!theme) {
         return computed;
     }
+    console.log("compute theme")
+    console.log(theme);
     var variables = parseVariables(_variables);
     var context = new runtime_1.contexts.Eval({}, [{
             variable: function (name) {
@@ -117,11 +129,16 @@ function compute(options) {
             computed.set(name, value.default);
         }
     });
+    console.log("------computed-----")
+    console.log(computed);
     return computed;
 }
 function setTheme(theme) {
+    console.log("settheme")
     var variables = compute(theme);
+    console.log(variables)
     loadThemedStyles_js_1.loadTheme(variables);
+    console.log('loadTheme')
     return variables;
 }
 exports.setTheme = setTheme;
