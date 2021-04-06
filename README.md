@@ -8,28 +8,28 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
 const Button = styled.div`
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 2em;
-    border-radius: 3px;
-    display: inline-block;
-    color: ${(props) => props.theme.fontColor};
-    border: 2px solid ${(props) => props.theme.borderColor};
-    background-color: ${(props) => props.theme.backgroundColor};
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 2em;
+  border-radius: 3px;
+  display: inline-block;
+  color: ${(props) => props.theme.fontColor};
+  border: 2px solid ${(props) => props.theme.borderColor};
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const DefaultTheme = {
-    backgroundColor: "white",
-    fontColor: "#33997a",
-    borderColor: "#33997a",
+  backgroundColor: "white",
+  fontColor: "#33997a",
+  borderColor: "#33997a",
 };
 const PinkTheme = {
-    backgroundColor: "#DB7290",
-    fontColor: "white",
-    borderColor: "#ffd7e8",
+  backgroundColor: "#DB7290",
+  fontColor: "white",
+  borderColor: "#ffd7e8",
 };
 
 <ThemeProvider theme={mode === "light" ? DefaultTheme : PinkTheme}>
-    <Button>Themed</Button>
+  <Button>Themed</Button>
 </ThemeProvider>;
 ```
