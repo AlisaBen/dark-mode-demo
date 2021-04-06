@@ -9,33 +9,33 @@ css
 
 ```css
 :root {
-    /* 浅色主题 */
-    --light-primary-color: #666;
-    --light-background-color: #fff;
+  /* 浅色主题 */
+  --light-primary-color: #666;
+  --light-background-color: #fff;
 
-    /* 深色主题 */
-    --dark-primary-color: #fff;
-    --dark-background-color: #282c34;
+  /* 深色主题 */
+  --dark-primary-color: #fff;
+  --dark-background-color: #282c34;
 }
 
 .App {
-    min-height: 100vh;
-    text-align: center;
-    color: var(--current-primary-color);
-    background-color: var(--current-background-color);
+  min-height: 100vh;
+  text-align: center;
+  color: var(--current-primary-color);
+  background-color: var(--current-background-color);
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --current-background-color: var(--dark-background-color);
-        --current-primary-color: var(--dark-primary-color);
-    }
+  :root {
+    --current-background-color: var(--dark-background-color);
+    --current-primary-color: var(--dark-primary-color);
+  }
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
-        --current-background-color: var(--light-background-color);
-        --current-primary-color: var(--light-primary-color);
-    }
+  :root {
+    --current-background-color: var(--light-background-color);
+    --current-primary-color: var(--light-primary-color);
+  }
 }
 ```
