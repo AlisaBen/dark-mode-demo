@@ -6,17 +6,17 @@
 
 ```javascript
 function App() {
-    const [mode, setMode] = useState("light");
-    return (
-        <div className={`App ${mode}`}>
-            <div style={{ paddingTop: "50px" }}>
-                切换主题模式：
-                <Switch
-                    onClick={() => setMode(mode === "light" ? "dark" : "light")}
-                ></Switch>
-            </div>
-        </div>
-    );
+  const [mode, setMode] = useState("light");
+  return (
+    <div className={`App ${mode}`}>
+      <div style={{ paddingTop: "50px" }}>
+        切换主题模式：
+        <Switch
+          onClick={() => setMode(mode === "light" ? "dark" : "light")}
+        ></Switch>
+      </div>
+    </div>
+  );
 }
 ```
 
@@ -24,27 +24,27 @@ css
 
 ```css
 :root {
-    /* 浅色主题 */
-    --light-primary-color: #666;
-    --light-background-color: #fff;
+  /* 浅色主题 */
+  --light-primary-color: #666;
+  --light-background-color: #fff;
 
-    /* 深色主题 */
-    --dark-primary-color: #fff;
-    --dark-background-color: #282c34;
+  /* 深色主题 */
+  --dark-primary-color: #fff;
+  --dark-background-color: #282c34;
 }
 
 .App {
-    min-height: 100vh;
-    text-align: center;
+  min-height: 100vh;
+  text-align: center;
 }
 
 .light {
-    color: var(--light-primary-color);
-    background-color: var(--light-background-color);
+  color: var(--light-primary-color);
+  background-color: var(--light-background-color);
 }
 .dark {
-    color: var(--dark-primary-color);
-    background-color: var(--dark-background-color);
+  color: var(--dark-primary-color);
+  background-color: var(--dark-background-color);
 }
 ```
 
@@ -56,10 +56,10 @@ css
 
 ```css
 .App {
-    min-height: 100vh;
-    text-align: center;
-    color: var(--current-primary-color);
-    background-color: var(--current-background-color);
+  min-height: 100vh;
+  text-align: center;
+  color: var(--current-primary-color);
+  background-color: var(--current-background-color);
 }
 ```
 
@@ -67,36 +67,36 @@ css
 
 ```javascript
 const setTheme = (themeName) => {
-    // 找到样式表中所有以--current开头的变量
-    const currentCssVar = Array.from(document.styleSheets).reduce(
-        (acc, sheet) =>
-            (acc = [
-                ...acc,
-                ...Array.from(sheet.cssRules).reduce(
-                    (def, rule) =>
-                        (def =
-                            rule.selectorText === ":root"
-                                ? [
-                                      ...def,
-                                      ...Array.from(rule.style).filter((name) =>
-                                          name.startsWith("--current")
-                                      ),
-                                  ]
-                                : def),
-                    []
-                ),
-            ]),
-        []
-    );
+  // 找到样式表中所有以--current开头的变量
+  const currentCssVar = Array.from(document.styleSheets).reduce(
+    (acc, sheet) =>
+      (acc = [
+        ...acc,
+        ...Array.from(sheet.cssRules).reduce(
+          (def, rule) =>
+            (def =
+              rule.selectorText === ":root"
+                ? [
+                    ...def,
+                    ...Array.from(rule.style).filter((name) =>
+                      name.startsWith("--current")
+                    ),
+                  ]
+                : def),
+          []
+        ),
+      ]),
+    []
+  );
 
-    // 替换--current开头的变量的取值根据模式进行选择
-    currentCssVar.forEach((item) => {
-        document.documentElement.style.setProperty(
-            item,
-            `var(--${themeName}${item.substring(9)})`
-        );
-    });
-    console.log(document.documentElement.style);
+  // 替换--current开头的变量的取值根据模式进行选择
+  currentCssVar.forEach((item) => {
+    document.documentElement.style.setProperty(
+      item,
+      `var(--${themeName}${item.substring(9)})`
+    );
+  });
+  console.log(document.documentElement.style);
 };
 
 export default setTheme;
@@ -114,28 +114,28 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 
 const Button = styled.div`
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 2em;
-    border-radius: 3px;
-    display: inline-block;
-    color: ${(props) => props.theme.fontColor};
-    border: 2px solid ${(props) => props.theme.borderColor};
-    background-color: ${(props) => props.theme.backgroundColor};
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 2em;
+  border-radius: 3px;
+  display: inline-block;
+  color: ${(props) => props.theme.fontColor};
+  border: 2px solid ${(props) => props.theme.borderColor};
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
 
 const DefaultTheme = {
-    backgroundColor: "white",
-    fontColor: "#33997a",
-    borderColor: "#33997a",
+  backgroundColor: "white",
+  fontColor: "#33997a",
+  borderColor: "#33997a",
 };
 const PinkTheme = {
-    backgroundColor: "#DB7290",
-    fontColor: "white",
-    borderColor: "#ffd7e8",
+  backgroundColor: "#DB7290",
+  fontColor: "white",
+  borderColor: "#ffd7e8",
 };
 
 <ThemeProvider theme={mode === "light" ? DefaultTheme : PinkTheme}>
-    <Button>Themed</Button>
+  <Button>Themed</Button>
 </ThemeProvider>;
 ```
